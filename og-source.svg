@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#f5f4f0"/>
+
+  <g transform="translate(885,315)">
+    <circle cx="0" cy="0" r="150" fill="none" stroke="#0a0a0a" stroke-opacity="0.18" stroke-width="1.5"/>
+    <circle cx="0" cy="0" r="100" fill="none" stroke="#0a0a0a" stroke-opacity="0.30" stroke-width="1.5"/>
+    <circle cx="0" cy="0" r="50" fill="none" stroke="#0a0a0a" stroke-opacity="0.45" stroke-width="1.5"/>
+    <circle cx="0" cy="0" r="4" fill="#0a0a0a"/>
+    <defs>
+      <path id="ring" d="M 0,0 m -125,0 a 125,125 0 1,1 250,0 a 125,125 0 1,1 -250,0"/>
+    </defs>
+    <text font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#0a0a0a" fill-opacity="0.45" letter-spacing="9">
+      <textPath href="#ring">Essence · Breath · Silence · Stillness · Truth ·</textPath>
+    </text>
+  </g>
+
+  <text x="120" y="290" font-family="Georgia, 'Times New Roman', serif" font-size="74" letter-spacing="14" fill="#0a0a0a">TURN TO SELF</text>
+  <text x="124" y="360" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="40" fill="#0a0a0a" fill-opacity="0.7">Find your still point.</text>
+  <text x="126" y="440" font-family="Georgia, 'Times New Roman', serif" font-size="22" letter-spacing="4" fill="#0a0a0a" fill-opacity="0.55">turntoself.net</text>
+</svg>
