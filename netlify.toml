@@ -1,0 +1,9 @@
+[build]
+  publish = "."
+
+# Serve the main HTML file at the site root without renaming it.
+# status = 200 rewrites the content at "/" (URL stays clean).
+[[redirects]]
+  from = "/"
+  to = "/still-website final v.html"
+  status = 200
