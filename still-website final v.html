@@ -99,7 +99,7 @@
     font-family: inherit;
     color: var(--black);
     opacity: 0.35;
-    cursor: none;
+    cursor: pointer;
     transition: opacity 0.2s, background 0.2s;
   }
   .lang-toggle button.lang-active {
@@ -377,27 +377,6 @@
     line-height: 1.2;
   }
   .about-subheading em { font-style: italic; }
-  .about-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    padding-top: 3rem;
-    border-top: 1px solid rgba(245,244,240,0.1);
-    position: relative; z-index: 1;
-  }
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
-    font-weight: 300;
-    line-height: 1;
-    margin-bottom: 0.4rem;
-  }
-  .stat-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(245,244,240,0.4);
-  }
 
   /* PRICING */
   .pricing {
@@ -624,7 +603,7 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     font-family: inherit;
-    cursor: none;
+    cursor: pointer;
     margin-top: -1px;
     text-align: left;
     display: flex;
@@ -950,6 +929,9 @@
       <span class="service-arrow">→</span>
     </div>
   </div>
+</section>
+
+<!-- ABOUT -->
 <section class="about" id="about">
   <div style="grid-column: 1 / -1; margin-bottom: 2rem;">
     <p class="section-label about-label reveal" id="rules-label">Rules & Dynamics</p>
