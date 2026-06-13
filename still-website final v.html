@@ -29,6 +29,8 @@
     --white: #f5f4f0;
     --mid: #0a0a0a;
     --border: rgba(10,10,10,0.12);
+    --shell: 1600px;
+    --gut: calc((100vw - var(--shell)) / 2);
   }
 
   html { scroll-behavior: smooth; }
@@ -51,7 +53,7 @@
     position: fixed; top: 0; left: 0; right: 0;
     z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
-    padding: 2rem 4rem;
+    padding: 2rem max(4rem, var(--gut));
     background: var(--white);
   }
   .nav-logo {
@@ -112,6 +114,8 @@
   /* HERO */
   .hero {
     min-height: 100vh;
+    max-width: var(--shell);
+    margin-inline: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     position: relative;
@@ -241,7 +245,7 @@
 
   /* SERVICES */
   .services {
-    padding: 8rem 4rem;
+    padding: 8rem max(4rem, var(--gut));
     display: grid;
     grid-template-columns: 1fr 2.4fr;
     gap: 4rem;
@@ -306,7 +310,7 @@
   .about {
     background: var(--black);
     color: var(--white);
-    padding: 6rem 2rem;
+    padding: 6rem max(2rem, var(--gut));
     display: block;
     position: relative;
     overflow: hidden;
@@ -357,7 +361,7 @@
 
   /* PRICING */
   .pricing {
-    padding: 8rem 4rem;
+    padding: 8rem max(4rem, var(--gut));
     display: grid;
     grid-template-columns: 1fr 2.4fr;
     gap: 4rem;
@@ -495,7 +499,7 @@
 
   /* CONTACT */
   .contact {
-    padding: 8rem 4rem;
+    padding: 8rem max(4rem, var(--gut));
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6rem;
@@ -585,7 +589,7 @@
   /* FOOTER */
   footer {
     border-top: 1px solid var(--border);
-    padding: 2.5rem 4rem;
+    padding: 2.5rem max(4rem, var(--gut));
     display: flex;
     justify-content: space-between;
     align-items: center;
