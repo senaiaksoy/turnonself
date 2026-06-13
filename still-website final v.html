@@ -115,7 +115,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     position: relative;
-    overflow: hidden;
   }
   .hero-left {
     display: flex;
@@ -127,13 +126,13 @@
   .hero-right {
     background: var(--white);
     position: relative;
-    overflow: hidden;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
   }
   .hero-spiral-wrap {
-    position: relative;
+    position: sticky;
+    top: calc(50vh - 190px);
     width: 380px; height: 380px;
   }
   .hero-circle {
@@ -244,7 +243,7 @@
   .services {
     padding: 8rem 4rem;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 2.4fr;
     gap: 4rem;
     align-items: start;
   }
@@ -255,75 +254,53 @@
     color: var(--mid);
     padding-top: 0.4rem;
   }
-  .services-grid {
+  /* Sticky index rail (shared by Services / Pricing) */
+  .rail { position: sticky; top: 8rem; align-self: start; }
+
+  .service-rows { border-top: 1px solid var(--border); }
+  .service-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border: 1px solid var(--border);
+    grid-template-columns: 4rem minmax(0, 0.9fr) minmax(0, 1.7fr);
+    gap: 2.5rem;
+    padding: 2.8rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
   }
-  .service-card {
-    padding: 3rem 2.5rem;
-    border-right: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-    transition: background 0.4s;
-  }
-  .service-card:nth-child(even) { border-right: none; }
-  .service-card:nth-child(1),
-  .service-card:nth-child(2),
-  .service-card:nth-child(3),
-  .service-card:nth-child(4) { border-bottom: 1px solid var(--border); }
-  .service-card::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: var(--black);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-    z-index: 0;
-  }
-  .service-card:hover::before { transform: scaleY(1); }
-  .service-card:hover .service-num,
-  .service-card:hover .service-name,
-  .service-card:hover .service-desc,
-  .service-card:hover .service-arrow { color: var(--white); }
-  .service-num {
+  .service-index {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 4rem;
+    font-size: 2.4rem;
     font-weight: 300;
-    color: rgba(10,10,10,0.08);
+    color: rgba(10,10,10,0.18);
     line-height: 1;
-    margin-bottom: 2rem;
-    position: relative; z-index: 1;
     transition: color 0.4s;
   }
-  .service-card:hover .service-num { color: rgba(245,244,240,0.15); }
+  .service-row:hover .service-index { color: var(--black); }
+  .service-head { display: flex; flex-direction: column; gap: 1.1rem; }
   .service-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     font-weight: 400;
-    margin-bottom: 1rem;
-    line-height: 1.2;
-    position: relative; z-index: 1;
-    transition: color 0.4s;
+    line-height: 1.15;
   }
+  .service-arrow {
+    font-size: 1.1rem;
+    color: var(--black);
+    opacity: 0.4;
+    transition: transform 0.3s, opacity 0.3s;
+    display: inline-block;
+  }
+  .service-row:hover .service-arrow { transform: translateX(5px); opacity: 1; }
   .service-desc {
     font-size: 0.85rem;
     color: var(--mid);
     line-height: 1.8;
-    margin-bottom: 2rem;
-    position: relative; z-index: 1;
-    transition: color 0.4s;
   }
-  .service-card:hover .service-desc { color: rgba(245,244,240,0.6); }
-  .service-arrow {
-    font-size: 1.2rem;
-    color: var(--black);
-    position: relative; z-index: 1;
-    transition: color 0.4s, transform 0.3s;
-    display: inline-block;
+  .service-media {
+    margin-top: 1.5rem;
+    position: relative;
+    aspect-ratio: 16/9;
+    width: 100%;
   }
-  .service-card:hover .service-arrow { transform: translateX(4px); color: var(--white); }
 
   /* ABOUT */
   .about {
@@ -382,58 +359,50 @@
   .pricing {
     padding: 8rem 4rem;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 2.4fr;
     gap: 4rem;
     align-items: start;
     border-top: 1px solid var(--border);
   }
-  .pricing-grid {
+  .price-rows { border-top: 1px solid var(--border); }
+  .price-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border: 1px solid var(--border);
-  }
-  .pricing-card {
-    padding: 2.5rem;
-    border-right: 1px solid var(--border);
+    grid-template-columns: 3rem minmax(0, 1fr) auto;
+    gap: 2.5rem;
+    padding: 2.2rem 0;
     border-bottom: 1px solid var(--border);
-    position: relative;
+    align-items: baseline;
   }
-  .pricing-card:nth-child(even) { border-right: none; }
-  .pricing-card:nth-child(odd):nth-last-child(1),
-  .pricing-card:nth-child(odd):nth-last-child(2),
-  .pricing-card:nth-child(even):nth-last-child(1) { border-bottom: none; }
-  .pricing-card:nth-child(4) { border-bottom: 1px solid var(--border); }
-  .pricing-letter {
+  .price-index {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
+    font-size: 1.6rem;
     font-weight: 300;
-    color: rgba(10,10,10,0.08);
+    color: rgba(10,10,10,0.18);
     line-height: 1;
-    margin-bottom: 1rem;
   }
   .pricing-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 400;
-    margin-bottom: 0.5rem;
-    line-height: 1.3;
+    margin-bottom: 0.4rem;
+    line-height: 1.25;
   }
   .pricing-detail {
     font-size: 0.8rem;
     color: var(--mid);
-    opacity: 0.5;
+    opacity: 0.6;
     line-height: 1.6;
-    margin-bottom: 1.5rem;
   }
   .pricing-amount {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
+    font-size: 1.9rem;
     font-weight: 300;
     line-height: 1;
+    text-align: right;
+    white-space: nowrap;
   }
   .pricing-amount span {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-family: 'Neue Haas Grotesk Display Pro', 'Helvetica Neue', sans-serif;
     letter-spacing: 0.1em;
     opacity: 0.5;
@@ -698,10 +667,13 @@
     }
     .hero-video { max-width: 100%; }
     .hero-actions { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .hero-spiral-wrap { width: 220px; height: 220px; }
+    .hero-spiral-wrap { width: 220px; height: 220px; position: static; top: auto; }
     .hero-circle { width: 220px; height: 220px; }
     .hero-circle:nth-child(2) { width: 150px; height: 150px; }
     .hero-circle:nth-child(3) { width: 75px; height: 75px; }
+
+    /* Sticky rail off on mobile */
+    .rail { position: static; top: auto; }
 
     /* Services */
     .services {
@@ -709,22 +681,17 @@
       padding: 3rem 1.25rem;
       gap: 1.5rem;
     }
-    .services-grid { grid-template-columns: 1fr; }
-    .service-card {
-      border-right: none;
-      border-bottom: 1px solid var(--border);
-      padding: 2rem 1.5rem;
+    .service-row {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 2.2rem 0;
     }
-    .service-card:nth-child(1),
-    .service-card:nth-child(2),
-    .service-card:nth-child(3),
-    .service-card:nth-child(4) { border-bottom: 1px solid var(--border); }
-    .service-card:nth-child(even) { border-right: none; }
-    .service-card:last-child { border-bottom: none; }
+    .service-head { flex-direction: row; align-items: baseline; justify-content: space-between; }
+    .service-index { font-size: 1.8rem; }
 
     /* About / Rules & Dynamics */
     .about { padding: 3rem 1.25rem; }
-    .about [style*="display: grid; grid-template-columns: 1fr 1fr"] {
+    .about [style*="grid-template-columns: 0.82fr 1.18fr"] {
       display: block !important;
     }
     .about [style*="padding-right: 2rem"] {
@@ -745,13 +712,18 @@
       padding: 3rem 1.25rem;
       gap: 1.5rem;
     }
-    .pricing-grid { grid-template-columns: 1fr; }
-    .pricing-card {
-      border-right: none !important;
-      border-bottom: 1px solid var(--border) !important;
-      padding: 1.75rem 1.5rem;
+    .price-row {
+      grid-template-columns: 2rem 1fr;
+      gap: 1rem 1.25rem;
+      padding: 1.75rem 0;
     }
-    .pricing-card:last-child { border-bottom: none !important; }
+    .price-main { grid-column: 2; }
+    .pricing-amount {
+      grid-column: 2;
+      text-align: left;
+      margin-top: 0.5rem;
+    }
+    .price-notes { grid-column: 2; }
     .pricing-note { padding: 1.5rem; }
 
     /* Contact */
@@ -779,8 +751,8 @@
   /* ── SMALL PHONES (max 400px) ── */
   @media (max-width: 400px) {
     .hero-title { font-size: clamp(2.4rem, 12vw, 3.5rem); }
-    .service-card { padding: 1.5rem 1.25rem; }
-    .pricing-card { padding: 1.5rem 1.25rem; }
+    .service-row { padding: 1.75rem 0; }
+    .price-row { padding: 1.5rem 0; }
     .btn-primary { padding: 0.85rem 1.75rem; font-size: 0.7rem; }
   }
 </style>
@@ -861,72 +833,92 @@
 
 <!-- SERVICES -->
 <section class="services" id="services">
-  <div>
+  <div class="rail">
     <p class="section-label reveal" id="offerings-label">Offerings</p>
   </div>
-  <div class="services-grid reveal">
-    <div class="service-card">
-      <div class="service-num">01</div>
-      <h3 class="service-name" id="s1-name">Meditation<br>Groups</h3>
-      <p class="service-desc" id="s1-desc">Here the first step and our most powerful tool for this is our attention and our focus. Once we are able to maintain our focus and sit down for our meditation, we also need to work on "letting go" and "not trying" in order to help ourselves to fall into a natural meditative state.<br><br>But how does one get to the meditative state? Not so easy, is it? Anyone can teach you how to meditate, there are numerous techniques but no one can actually make you meditate.<br><br>Neither can we but we know one thing: how to cultivate the mind and the body for it to awaken this energy that is already inside of you and once it is awakened, we connect to it to begin our inner journey.<br><br>We are creating groups that are ideally between 8 to 9 people. Each group will have one leader and one aid.<br><br>For the ones who have devoted themselves to full-time Meditation, the physical gatherings at their center will be twice a day, during dawn and dusk.<br><br>At the minimum, each group leader will organize at least one physical meditation gathering per week.</p>
-      <div style="margin-top: 1.5rem; position: relative; aspect-ratio: 16/9; width: 100%;">
-        <a href="https://youtu.be/HFWO2xBhvvU" target="_blank" style="display:block; position:relative; text-decoration:none; width:100%; height:100%;">
-          <img src="https://img.youtube.com/vi/HFWO2xBhvvU/maxresdefault.jpg" alt="Watch on YouTube" style="width:100%; height:100%; object-fit:cover; display:block;">
-          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2);">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.6)"/>
-              <polygon points="26,20 50,32 26,44" fill="white"/>
-            </svg>
-          </div>
-        </a>
+  <div class="service-rows reveal">
+    <div class="service-row">
+      <div class="service-index">01</div>
+      <div class="service-head">
+        <h3 class="service-name" id="s1-name">Meditation<br>Groups</h3>
+        <span class="service-arrow">→</span>
       </div>
-      <span class="service-arrow">→</span>
-    </div>
-    <div class="service-card">
-      <div class="service-num">02</div>
-      <h3 class="service-name" id="s2-name">Live<br>Q&amp;A</h3>
-      <p class="service-desc" id="s2-desc">Monthly Q&A sessions on Self Realization, and how to integrate this into our lives. A space for honest questions — an inquiry into what is unfolding within us and how to deal with it.</p>
-      <span class="service-arrow">→</span>
-    </div>
-    <div class="service-card">
-      <div class="service-num">03</div>
-      <h3 class="service-name" id="s3-name">Private<br>Consultation</h3>
-      <p class="service-desc" id="s3-desc">One-on-one time with Cem. A private space to share your inner journey, ask what you cannot ask in a group, and receive guidance specific to where you are on your path.</p>
-      <span class="service-arrow">→</span>
-    </div>
-    <div class="service-card">
-      <div class="service-num">04</div>
-      <h3 class="service-name" id="s4-name">Silent<br>Retreats</h3>
-      <p class="service-desc" id="s4-desc">To support the inner awakening, we further cultivate the path through monthly mini silent retreats. Each month, during the full moon, we will meet at one of the group leader's or members' homes, or at the meditation center, to practice silence and stillness. This could range from two to three days per month.</p>
-      <div style="margin-top: 1.5rem; position: relative; aspect-ratio: 16/9; width: 100%;">
-        <a href="https://youtu.be/4E7FM104-Sc" target="_blank" style="display:block; position:relative; text-decoration:none; width:100%; height:100%;">
-          <img src="https://img.youtube.com/vi/4E7FM104-Sc/maxresdefault.jpg" alt="Watch on YouTube" style="width:100%; height:100%; object-fit:cover; display:block;">
-          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2);">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.6)"/>
-              <polygon points="26,20 50,32 26,44" fill="white"/>
-            </svg>
-          </div>
-        </a>
+      <div class="service-body">
+        <p class="service-desc" id="s1-desc">Here the first step and our most powerful tool for this is our attention and our focus. Once we are able to maintain our focus and sit down for our meditation, we also need to work on "letting go" and "not trying" in order to help ourselves to fall into a natural meditative state.<br><br>But how does one get to the meditative state? Not so easy, is it? Anyone can teach you how to meditate, there are numerous techniques but no one can actually make you meditate.<br><br>Neither can we but we know one thing: how to cultivate the mind and the body for it to awaken this energy that is already inside of you and once it is awakened, we connect to it to begin our inner journey.<br><br>We are creating groups that are ideally between 8 to 9 people. Each group will have one leader and one aid.<br><br>For the ones who have devoted themselves to full-time Meditation, the physical gatherings at their center will be twice a day, during dawn and dusk.<br><br>At the minimum, each group leader will organize at least one physical meditation gathering per week.</p>
+        <div class="service-media">
+          <a href="https://youtu.be/HFWO2xBhvvU" target="_blank" style="display:block; position:relative; text-decoration:none; width:100%; height:100%;">
+            <img src="https://img.youtube.com/vi/HFWO2xBhvvU/maxresdefault.jpg" alt="Watch on YouTube" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2);">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.6)"/>
+                <polygon points="26,20 50,32 26,44" fill="white"/>
+              </svg>
+            </div>
+          </a>
+        </div>
       </div>
-      <span class="service-arrow">→</span>
     </div>
-    <div class="service-card">
-      <div class="service-num">05</div>
-      <h3 class="service-name" id="s5-name">Nature<br>Outings</h3>
-      <p class="service-desc" id="s5-desc">Apart from the meditations, we will also spend time in nature — gathering early in the morning to watch the sunrise and the sunset at dusk, sometimes followed by a short walk with some light yoga. We will arrange outings in nature: the forest, the beach, anywhere we can connect to nature.</p>
-      <div style="margin-top: 1.5rem; position: relative; aspect-ratio: 16/9; width: 100%;">
-        <a href="https://youtu.be/mkSV-Q7w9eY" target="_blank" style="display:block; position:relative; text-decoration:none; width:100%; height:100%;">
-          <img src="https://img.youtube.com/vi/mkSV-Q7w9eY/maxresdefault.jpg" alt="Watch on YouTube" style="width:100%; height:100%; object-fit:cover; display:block;">
-          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2);">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.6)"/>
-              <polygon points="26,20 50,32 26,44" fill="white"/>
-            </svg>
-          </div>
-        </a>
+    <div class="service-row">
+      <div class="service-index">02</div>
+      <div class="service-head">
+        <h3 class="service-name" id="s2-name">Live<br>Q&amp;A</h3>
+        <span class="service-arrow">→</span>
       </div>
-      <span class="service-arrow">→</span>
+      <div class="service-body">
+        <p class="service-desc" id="s2-desc">Monthly Q&A sessions on Self Realization, and how to integrate this into our lives. A space for honest questions — an inquiry into what is unfolding within us and how to deal with it.</p>
+      </div>
+    </div>
+    <div class="service-row">
+      <div class="service-index">03</div>
+      <div class="service-head">
+        <h3 class="service-name" id="s3-name">Private<br>Consultation</h3>
+        <span class="service-arrow">→</span>
+      </div>
+      <div class="service-body">
+        <p class="service-desc" id="s3-desc">One-on-one time with Cem. A private space to share your inner journey, ask what you cannot ask in a group, and receive guidance specific to where you are on your path.</p>
+      </div>
+    </div>
+    <div class="service-row">
+      <div class="service-index">04</div>
+      <div class="service-head">
+        <h3 class="service-name" id="s4-name">Silent<br>Retreats</h3>
+        <span class="service-arrow">→</span>
+      </div>
+      <div class="service-body">
+        <p class="service-desc" id="s4-desc">To support the inner awakening, we further cultivate the path through monthly mini silent retreats. Each month, during the full moon, we will meet at one of the group leader's or members' homes, or at the meditation center, to practice silence and stillness. This could range from two to three days per month.</p>
+        <div class="service-media">
+          <a href="https://youtu.be/4E7FM104-Sc" target="_blank" style="display:block; position:relative; text-decoration:none; width:100%; height:100%;">
+            <img src="https://img.youtube.com/vi/4E7FM104-Sc/maxresdefault.jpg" alt="Watch on YouTube" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2);">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.6)"/>
+                <polygon points="26,20 50,32 26,44" fill="white"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="service-row">
+      <div class="service-index">05</div>
+      <div class="service-head">
+        <h3 class="service-name" id="s5-name">Nature<br>Outings</h3>
+        <span class="service-arrow">→</span>
+      </div>
+      <div class="service-body">
+        <p class="service-desc" id="s5-desc">Apart from the meditations, we will also spend time in nature — gathering early in the morning to watch the sunrise and the sunset at dusk, sometimes followed by a short walk with some light yoga. We will arrange outings in nature: the forest, the beach, anywhere we can connect to nature.</p>
+        <div class="service-media">
+          <a href="https://youtu.be/mkSV-Q7w9eY" target="_blank" style="display:block; position:relative; text-decoration:none; width:100%; height:100%;">
+            <img src="https://img.youtube.com/vi/mkSV-Q7w9eY/maxresdefault.jpg" alt="Watch on YouTube" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2);">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.6)"/>
+                <polygon points="26,20 50,32 26,44" fill="white"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -936,7 +928,7 @@
   <div style="grid-column: 1 / -1; margin-bottom: 2rem;">
     <p class="section-label about-label reveal" id="rules-label">Rules & Dynamics</p>
   </div>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid rgba(245,244,240,0.15);">
+  <div style="display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 0; border-top: 1px solid rgba(245,244,240,0.15);">
     <!-- Rules column -->
     <div style="padding-right: 2rem; border-right: 1px solid rgba(245,244,240,0.15); padding-top: 3rem;">
       <h2 class="about-title reveal" id="rules-title">How we<br>walk<br><em>together.</em></h2>
@@ -977,43 +969,57 @@
 
 <!-- PRICING -->
 <section class="pricing" id="pricing">
-  <div>
+  <div class="rail">
     <p class="section-label reveal" id="rates-label">Rates</p>
     <h2 class="contact-heading reveal" id="rates-title">Services &<br><em>costs.</em></h2>
   </div>
-  <div class="pricing-grid reveal">
-    <div class="pricing-card">
-      <div class="pricing-letter">01</div>
-      <p class="pricing-name" id="p1-name">Meditation Groups</p>
-      <p class="pricing-detail" id="p1-detail">4–5 days creating a meditation group</p>
+  <div class="price-rows reveal">
+    <div class="price-row">
+      <div class="price-index">01</div>
+      <div class="price-main">
+        <p class="pricing-name" id="p1-name">Meditation Groups</p>
+        <p class="pricing-detail" id="p1-detail">4–5 days creating a meditation group</p>
+        <div class="price-notes">
+          <p id="p1-note" style="font-size:0.75rem;line-height:1.7;color:var(--mid);opacity:0.65;margin-top:1rem;">Unless provided by the client, an assistant will be brought on by us at 75 EUR + VAT per day.</p>
+          <p id="p1-travel" style="font-size:0.75rem;line-height:1.7;color:var(--mid);opacity:0.65;margin-top:0.6rem;">If traveling is involved all expenses must be paid upfront by the client.</p>
+        </div>
+      </div>
       <div class="pricing-amount" id="p1-amount">400–500€ <small id="p1-vat" style="font-size:0.6rem;letter-spacing:0.1em;opacity:0.5;font-family:'Neue Haas Grotesk Display Pro','Helvetica Neue',sans-serif;">+ VAT</small><span id="p1-sub">100€ per day</span></div>
-      <p id="p1-note" style="font-size:0.75rem;line-height:1.7;color:var(--mid);opacity:0.65;margin-top:1rem;">Unless provided by the client, an assistant will be brought on by us at 75 EUR + VAT per day.</p>
-      <p id="p1-travel" style="font-size:0.75rem;line-height:1.7;color:var(--mid);opacity:0.65;margin-top:0.6rem;">If traveling is involved all expenses must be paid upfront by the client.</p>
     </div>
-    <div class="pricing-card">
-      <div class="pricing-letter">02</div>
-      <p class="pricing-name" id="p2-name">Monthly Q&A</p>
-      <p class="pricing-detail" id="p2-detail">On Self Realization</p>
+    <div class="price-row">
+      <div class="price-index">02</div>
+      <div class="price-main">
+        <p class="pricing-name" id="p2-name">Monthly Q&A</p>
+        <p class="pricing-detail" id="p2-detail">On Self Realization</p>
+      </div>
       <div class="pricing-amount" id="p2-amount">Donation<span id="p2-sub">by your own heart</span></div>
     </div>
-    <div class="pricing-card">
-      <div class="pricing-letter">03</div>
-      <p class="pricing-name" id="p3-name">Private Sessions</p>
-      <p class="pricing-detail" id="p3-detail">45 minutes, one-on-one with Cem</p>
+    <div class="price-row">
+      <div class="price-index">03</div>
+      <div class="price-main">
+        <p class="pricing-name" id="p3-name">Private Sessions</p>
+        <p class="pricing-detail" id="p3-detail">45 minutes, one-on-one with Cem</p>
+      </div>
       <div class="pricing-amount" id="p3-amount">50€ <small id="p3-vat" style="font-size:0.6rem;letter-spacing:0.1em;opacity:0.5;font-family:'Neue Haas Grotesk Display Pro','Helvetica Neue',sans-serif;">+ VAT</small><span id="p3-sub">per session</span></div>
     </div>
-    <div class="pricing-card">
-      <div class="pricing-letter">04</div>
-      <p class="pricing-name" id="p4-name">Retreats</p>
-      <p class="pricing-detail" id="p4-detail">Meditation & silence, 2 to 3 days</p>
+    <div class="price-row">
+      <div class="price-index">04</div>
+      <div class="price-main">
+        <p class="pricing-name" id="p4-name">Retreats</p>
+        <p class="pricing-detail" id="p4-detail">Meditation & silence, 2 to 3 days</p>
+        <div class="price-notes">
+          <p id="p4-note" style="font-size:0.75rem;line-height:1.7;color:var(--mid);opacity:0.65;margin-top:1rem;">Unless provided by the client, an assistant will be brought on by us at 75 EUR + VAT per day.</p>
+          <p id="p4-travel" style="font-size:0.75rem;line-height:1.7;color:var(--mid);opacity:0.65;margin-top:0.6rem;">If traveling is involved all expenses must be paid upfront by the client.</p>
+        </div>
+      </div>
       <div class="pricing-amount" id="p4-amount">200–300€ <small id="p4-vat" style="font-size:0.6rem;letter-spacing:0.1em;opacity:0.5;font-family:'Neue Haas Grotesk Display Pro','Helvetica Neue',sans-serif;">+ VAT</small><span id="p4-sub">100€ per day</span></div>
-      <p id="p4-note" style="font-size:0.75rem;line-height:1.7;color:var(--mid);opacity:0.65;margin-top:1rem;">Unless provided by the client, an assistant will be brought on by us at 75 EUR + VAT per day.</p>
-      <p id="p4-travel" style="font-size:0.75rem;line-height:1.7;color:var(--mid);opacity:0.65;margin-top:0.6rem;">If traveling is involved all expenses must be paid upfront by the client.</p>
     </div>
-    <div class="pricing-card">
-      <div class="pricing-letter">05</div>
-      <p class="pricing-name" id="p5-name">Hotels, Resorts<br>& Wellness Centers</p>
-      <p class="pricing-detail" id="p5-detail">On-site programs and residencies</p>
+    <div class="price-row">
+      <div class="price-index">05</div>
+      <div class="price-main">
+        <p class="pricing-name" id="p5-name">Hotels, Resorts<br>& Wellness Centers</p>
+        <p class="pricing-detail" id="p5-detail">On-site programs and residencies</p>
+      </div>
       <div class="pricing-amount" id="p5-amount">125€ <small id="p5-vat" style="font-size:0.6rem;letter-spacing:0.1em;opacity:0.5;font-family:'Neue Haas Grotesk Display Pro','Helvetica Neue',sans-serif;">+ VAT</small><span id="p5-sub">per day</span></div>
     </div>
   </div>
